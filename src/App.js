@@ -23,7 +23,11 @@ function App() {
   const searchGitHubUsers=async()=> {
     try {
       const octokit = new Octokit({ 
+<<<<<<< HEAD
         auth: process.env.GITHUB_ACCESS_TOKEN
+=======
+        auth: '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'
+>>>>>>> origin/main
       });
      const usersResponse= await octokit.request(`GET /search/users`, {
         q:searchTerm
