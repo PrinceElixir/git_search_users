@@ -1,5 +1,9 @@
 import React,{useState,useEffect} from "react";
 import { Octokit } from "octokit";
+
+
+
+
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [item, setitem] = useState([])
@@ -19,7 +23,7 @@ function App() {
   const searchGitHubUsers=async()=> {
     try {
       const octokit = new Octokit({ 
-        auth: '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'
+        auth: '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'
       });
      const usersResponse= await octokit.request(`GET /search/users`, {
         q:searchTerm
@@ -34,42 +38,45 @@ function App() {
   }
   return (
     <div className="App">
-      <div class="container mt-4">
-  <h2>GitHub User Search</h2>
+    <div className="container mt-4">
+      <h2 className="mb-4">GitHub User Search</h2>
 
+      <div className="mb-3">
+        <input
+          type="text"
+          id="searchInput"
+          value={searchTerm}
+          onChange={handleInputChange}
+          className="form-control"
+          placeholder="Search GitHub users..."
+        />
+      </div>
 
-  <div class="mb-3">
-    <input type="text" id="searchInput"   value={searchTerm}
-        onChange={handleInputChange}
-        class="form-control" placeholder="Search GitHub users..."/>
-  </div>
-
-  
-  <table class="table">
-    <thead>
-      
-    </thead>
-    <tbody id="userTableBody">
-    <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Profile</th>
-      </tr>
-     { 
-     item.map((ele)=>{
-      return <tr>
-          <td>{ele.id}</td>
-          <td>{ele.login}</td>
-          <td> <a href={ele.url}>{ele.url}</a></td>
-        </tr>
-      
-     })
-     }
-    </tbody>
-  </table>
-</div>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Profile</th>
+          </tr>
+        </thead>
+        <tbody id="userTableBody">
+          {item.map((ele) => (
+            <tr key={ele.id}>
+              <td>{ele.id}</td>
+              <td>{ele.login}</td>
+              <td>
+                <a href={ele.url} className="App-link">
+                  {ele.url}
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
-  );
+  </div>
+);
 }
 
 export default App;
